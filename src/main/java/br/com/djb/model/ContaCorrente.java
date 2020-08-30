@@ -37,6 +37,8 @@ public class ContaCorrente implements Serializable {
 	public ContaCorrente(Pessoa pessoa, Integer agenciaParam) {
 		this.numero = Util.random6digitos();
 		this.agencia = agenciaParam;
+		this.tipo = TipoContaCorrente.contains(pessoa.getTipo()).name();
+		this.idPessoa = pessoa.getIdPessoa();
 	}
 	
 	public ContaCorrenteDto converterDto() {

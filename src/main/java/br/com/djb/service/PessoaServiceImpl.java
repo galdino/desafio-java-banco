@@ -15,11 +15,20 @@ public class PessoaServiceImpl implements PessoaService {
 	
 	@Autowired
 	private PessoaRepository pessoaRepository;
+	
+	@Autowired
+	private ContaCorrenteService contaCorrenteService;
 
 	@Override
 	public Pessoa save(CriarPessoaDto criarPessoaDto) {
-		final Pessoa pessoa = new Pessoa(criarPessoaDto);
-		return this.pessoaRepository.save(pessoa);
+		Pessoa pessoa = new Pessoa(criarPessoaDto);
+		this.pessoaRepository.save(pessoa);
+		this.abrirContaCorrente(pessoa);
+		return pessoa;
+	}
+
+	private void abrirContaCorrente(Pessoa pessoa) {
+		this.contaCorrenteService.save(pessoa);
 	}
 
 	@Override
