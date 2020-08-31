@@ -21,6 +21,7 @@ public class PessoaServiceImpl implements PessoaService {
 	private ContaCorrenteService contaCorrenteService;
 
 	@Override
+	@Async
 	public Pessoa save(CriarPessoaDto criarPessoaDto) {
 		Pessoa pessoa = new Pessoa(criarPessoaDto);
 		this.pessoaRepository.save(pessoa);
@@ -28,7 +29,6 @@ public class PessoaServiceImpl implements PessoaService {
 		return pessoa;
 	}
 
-	@Async
 	private void abrirContaCorrente(Pessoa pessoa) {
 		this.contaCorrenteService.save(pessoa);
 	}
