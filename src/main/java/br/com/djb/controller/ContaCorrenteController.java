@@ -24,14 +24,10 @@ public class ContaCorrenteController {
 	@GetMapping
 	public ResponseEntity<List<ContaCorrenteDto>> listarContas() {
 		List<ContaCorrente> contaList = this.contaCorrenteService.listarContas();
-		if(contaList.isEmpty()){
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		} else {
-			List<ContaCorrenteDto> contaListAux = contaList.stream()
-									  				       .map(ContaCorrente::converterDto)
-									  				       .collect(Collectors.toList());
-			return new ResponseEntity<List<ContaCorrenteDto>>(contaListAux, HttpStatus.OK);
-		}
+		List<ContaCorrenteDto> contaListAux = contaList.stream()
+								  				       .map(ContaCorrente::converterDto)
+								  				       .collect(Collectors.toList());
+		return new ResponseEntity<List<ContaCorrenteDto>>(contaListAux, HttpStatus.OK);
 	}
 
 }

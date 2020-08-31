@@ -1,5 +1,7 @@
 package br.com.djb.dto;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ContaCorrenteDto {
@@ -14,6 +16,8 @@ public class ContaCorrenteDto {
     private String tipo;
     @JsonProperty("idPessoa")
     private Long idPessoa;
+    @JsonProperty("carteiras")
+	private List<CarteiraDto> carteiras;
     
 	public Long getIdConta() {
 		return idConta;
@@ -44,5 +48,11 @@ public class ContaCorrenteDto {
 	}
 	public void setIdPessoa(Long idPessoa) {
 		this.idPessoa = idPessoa;
+	}
+	public List<CarteiraDto> getCarteiras() {
+		return carteiras;
+	}
+	public void setCarteiras(List<CarteiraDto> carteiras) {
+		this.carteiras = carteiras;
 	}
 }

@@ -1,12 +1,17 @@
 package br.com.djb.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.com.djb.dto.ContaCorrenteDto;
@@ -30,6 +35,8 @@ public class ContaCorrente implements Serializable {
 	private String tipo;
 	@Column(name="ID_PESSOA")
 	private Long idPessoa;
+	@OneToMany(mappedBy = "contaCorrente", cascade = CascadeType.ALL)
+    private List<Carteira> carteiras;
 	
 	public ContaCorrente() {
 	}
@@ -37,8 +44,10 @@ public class ContaCorrente implements Serializable {
 	public ContaCorrente(Pessoa pessoa, Integer agenciaParam) {
 		this.numero = Util.random6digitos();
 		this.agencia = agenciaParam;
-		this.tipo = TipoContaCorrente.contains(pessoa.getTipo()).name();
+		this.tipo = TipoContaCorrente.filter(pessoa.getTipo()).get().name();
 		this.idPessoa = pessoa.getIdPessoa();
+		this.carteiras = new ArrayList<Carteira>();
+		this.carteiras.add(new Carteira(pessoa, this));
 	}
 	
 	public ContaCorrenteDto converterDto() {
@@ -48,6 +57,11 @@ public class ContaCorrente implements Serializable {
 		contaCorrenteDto.setAgencia(this.agencia);
 		contaCorrenteDto.setTipo(this.tipo);
 		contaCorrenteDto.setIdPessoa(this.idPessoa);
+		if(this.carteiras != null && this.carteiras.size() > 0){
+			contaCorrenteDto.setCarteiras(this.carteiras.stream()
+														.map(c -> c.converterDto())
+														.collect(Collectors.toList()));
+		}
 		return contaCorrenteDto;
 	}
 	
@@ -80,5 +94,13 @@ public class ContaCorrente implements Serializable {
 	}
 	public void setIdPessoa(Long idPessoa) {
 		this.idPessoa = idPessoa;
+	}
+
+	public List<Carteira> getCarteiras() {
+		return carteiras;
+	}
+
+	public void setCarteiras(List<Carteira> carteiras) {
+		this.carteiras = carteiras;
 	}
 }

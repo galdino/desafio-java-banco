@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.QueryTimeoutException;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import br.com.djb.dto.CriarPessoaDto;
@@ -27,6 +28,7 @@ public class PessoaServiceImpl implements PessoaService {
 		return pessoa;
 	}
 
+	@Async
 	private void abrirContaCorrente(Pessoa pessoa) {
 		this.contaCorrenteService.save(pessoa);
 	}

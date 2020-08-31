@@ -1,24 +1,26 @@
 package br.com.djb.model;
 
+import java.util.Optional;
+import java.util.stream.Stream;
+
 public enum TipoPessoa {
 	
 	PF(11),PJ(14);
 	
-	private final int tamanho;
+	private int tamanho;
 	
 	TipoPessoa(int tamanho) { 
 		this.tamanho = tamanho; 
 	}
-    
-	public int getValue() { 
+	
+	public int getTamanho() {
     	return tamanho; 
     }
 	
-	public static TipoPessoa contains(String s){
-	      for(TipoPessoa tipoPessoa:values())
-	           if (tipoPessoa.name().equals(s)) 
-	              return tipoPessoa;
-	      return null;
+	public static Optional<TipoPessoa> filter(String t) {
+		return Stream.of(values())
+					 .filter(s -> t.equals(s.name()))
+					 .findAny();
 	}
 
 }

@@ -1,24 +1,26 @@
 package br.com.djb.model;
 
+import java.util.Optional;
+import java.util.stream.Stream;
+
 public enum TipoContaCorrente {
 	
 	C("PF"),E("PJ");
 	
-	private final String tipoPessoa;
+	private String tipoPessoa;
 	
 	TipoContaCorrente(String tipoPessoa) { 
 		this.tipoPessoa = tipoPessoa; 
 	}
     
-	public String getValue() { 
+	public String getTipoPessoa() { 
     	return tipoPessoa; 
     }
 	
-	public static TipoContaCorrente contains(String s){
-	      for(TipoContaCorrente tipoContaCorrente:values())
-	           if (tipoContaCorrente.getValue().equals(s)) 
-	              return tipoContaCorrente;
-	      return null;
+	public static Optional<TipoContaCorrente> filter(String t) {
+		return Stream.of(values())
+					 .filter(s -> t.equals(s.getTipoPessoa()))
+					 .findAny();
 	}
 
 }

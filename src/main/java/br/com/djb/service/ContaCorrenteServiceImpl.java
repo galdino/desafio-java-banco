@@ -14,11 +14,14 @@ import br.com.djb.repository.ContaCorrenteRepository;
 @Service
 public class ContaCorrenteServiceImpl implements ContaCorrenteService {
 	
-	@Value("${agencia.numero}")
 	private String agenciaParam;
 	
 	@Autowired
 	private ContaCorrenteRepository contaCorrenteRepository;
+	
+	public ContaCorrenteServiceImpl(@Value("${agencia.numero}") String agenciaParam) {
+		this.agenciaParam = agenciaParam;
+	}
 
 	@Override
 	public List<ContaCorrente> listarContas() {
@@ -34,5 +37,4 @@ public class ContaCorrenteServiceImpl implements ContaCorrenteService {
 		ContaCorrente contaCorrente = new ContaCorrente(pessoa, Integer.valueOf(this.agenciaParam));
 		return this.contaCorrenteRepository.save(contaCorrente);
 	}
-
 }

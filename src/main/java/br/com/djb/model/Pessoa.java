@@ -44,13 +44,13 @@ public class Pessoa implements Serializable {
 		
 		if(criarPessoaDto.getTipo() == null 
 		   || "".equals(criarPessoaDto.getTipo().trim())
-		   || TipoPessoa.contains(criarPessoaDto.getTipo()) == null){
+		   || !TipoPessoa.filter(criarPessoaDto.getTipo()).isPresent()){
 			throw new CamposInvalidosDaoException("Tipo");
 		}
 		
 		if(criarPessoaDto.getNumDocumento() == null 
 		   || "".equals(criarPessoaDto.getNumDocumento().trim())
-		   || TipoPessoa.contains(criarPessoaDto.getTipo()).getValue() != criarPessoaDto.getNumDocumento().length()){
+		   || TipoPessoa.filter(criarPessoaDto.getTipo()).get().getTamanho() != criarPessoaDto.getNumDocumento().length()){
 			throw new CamposInvalidosDaoException("Número Documento");
 		}
 		
