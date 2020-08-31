@@ -12,7 +12,7 @@ docker-compose build --no-cache && docker-compose up
 <ul>
   <li>post - http://localhost:8080/pessoas</li>
 </ul>
-```
+```json
 {
     "nome": "Ricardo",
     "tipo": "PF",
@@ -23,7 +23,7 @@ docker-compose build --no-cache && docker-compose up
 <ul>
   <li>get - http://localhost:8080/pessoas</li>
 </ul>
-```
+```json
 [
     {
         "idPessoa": 1,
@@ -59,7 +59,7 @@ docker-compose build --no-cache && docker-compose up
 <ul>
   <li>get - http://localhost:8080/contas</li>
 </ul>
-```
+```json
 [
     {
         "idConta": 1,
