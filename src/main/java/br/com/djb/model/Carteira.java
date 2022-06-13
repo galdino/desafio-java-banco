@@ -31,7 +31,7 @@ public class Carteira implements Serializable {
 	private Double limiteCE;
 	@Column(name = "LIMITE_CC")
 	private Double limiteCC;
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_CONTA")
 	private ContaCorrente contaCorrente;
 	
