@@ -35,7 +35,7 @@ public class ContaCorrente implements Serializable {
 	private String tipo;
 	@Column(name="ID_PESSOA")
 	private Long idPessoa;
-	@OneToMany(mappedBy = "contaCorrente", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "contaCorrente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Carteira> carteiras;
 	
 	public ContaCorrente() {
